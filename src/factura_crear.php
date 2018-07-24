@@ -2,19 +2,23 @@
 global $dbh;
 
 $query = $dbh->prepare(
-    "SELECT 
-                CASE WHEN COUNT(*) > 0 THEN 
-                    CONCAT('F-',LPAD(SUBSTR(codigo,7,11)+1,4,'0'), '/', YEAR(NOW()))
-                ELSE 
-                    CONCAT('F-0001', '/', YEAR(NOW()))
-                END AS codigo 
-              FROM factura 
-              WHERE year(fecha_emision) = YEAR(NOW()) 
-              ORDER BY codigo DESC LIMIT 1;
+    "SELECT CONCAT('F-',LPAD(SUBSTR(codigo,3,4)+1,4,'0'), '/', 
+                YEAR(NOW())) AS codigo 
+                FROM factura WHERE year(fecha_emision) = YEAR(NOW())
+              UNION
+                SELECT CONCAT('F-0001', '/', YEAR(NOW())) AS codigo
+              ORDER BY codigo DESC LIMIT 1;;
     ");
 // Establece la forma de devolver los resultados, en este caso devolverá un array asociativo
 $query->setFetchMode(PDO::FETCH_ASSOC);
 $query->execute();
-while ($row = $stmt->fetch()){
-    echo $row["codigo"];
+
+echo "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'></head><body>";
+while ($row = $query->fetch()){
+    echo '<form method="post" action="index.php?p=factura_grabar">';
+    echo '<input type="text" name="codigo" value="' . $row["codigo"] . '">';
+    echo '<input type="date" name="fecha_emision">';
+    echo '<input type="submit" value="Grabar factura">';
+    echo '</form>';
 }
+echo "</body></html>";
