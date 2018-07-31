@@ -11,7 +11,9 @@
 </head>
 <body>
 <div class='container'>
-    <section class='header'><h3>Generar código autonumérico con reinicio anual</h3></section>
+    <section class='header'>
+      <h3>Generar código autonumérico con reinicio anual</h3>
+    </section>
     <p><a href='index.php?p=factura_crear'>Crear factura</a></p>
 
     <?php
@@ -25,7 +27,6 @@
     }
     echo '</ul>';
     ?>
-
 </div>
 </body>
 </html>

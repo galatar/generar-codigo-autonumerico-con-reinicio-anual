@@ -2,8 +2,8 @@
 global $dbh;
 
 $query = $dbh->prepare(
-    "SELECT CONCAT('F-',LPAD(SUBSTR(codigo,3,4)+1,4,'0'), '/', 
-            YEAR(NOW())) AS codigo 
+    "SELECT CONCAT('F-',LPAD(SUBSTR(codigo,3,4)+1,4,'0'), '/',
+            YEAR(NOW())) AS codigo
             FROM factura WHERE year(fecha_emision) = YEAR(NOW())
           UNION
             SELECT CONCAT('F-0001', '/', YEAR(NOW())) AS codigo
@@ -25,7 +25,9 @@ $query->execute();
 </head>
 <body>
 <div class='container'>
-    <section class='header'><h3>Generar código autonumérico con reinicio anual</h3></section>
+    <section class='header'>
+      <h3>Generar código autonumérico con reinicio anual</h3>
+    </section>
     <?php
     while ($row = $query->fetch()) {
         echo '<form method="post" action="index.php?p=factura_grabar">';
@@ -37,4 +39,4 @@ $query->execute();
     ?>
 </div>
 </body>
-</html>";
+</html>
