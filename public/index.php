@@ -23,4 +23,5 @@ if (filter_has_var(INPUT_GET, 'p')) {
     $pagina .= 'inicio';
 }
 $pagina .= ".php";
-include_once($pagina);
+require_once ($pagina);
+

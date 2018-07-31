@@ -1,5 +1,3 @@
-<?php global $dbh; ?>
-
 <!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -17,6 +15,7 @@
     <p><a href='index.php?p=factura_crear'>Crear factura</a></p>
 
     <?php
+    global $dbh;
     $query = $dbh->prepare("SELECT * FROM factura;");
     // Establece la forma de devolver los resultados, en este caso devolverá un array asociativo
     $query->setFetchMode(PDO::FETCH_ASSOC);
